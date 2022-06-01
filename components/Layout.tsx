@@ -4,12 +4,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   return (
     <div className="layout">
       <header>
-        <h1>Nextjs Contentful Example Blog App</h1>
+        <h1>NEXTJS CONTENTFUL BLOG POST APP EXAMPLE</h1>
       </header>
       <div className="page-content">{children}</div>
-      <footer className="footer">
-        <p>Placeholder footer</p>
-      </footer>
     </div>
   );
 };

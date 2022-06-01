@@ -17,10 +17,21 @@ export const getStaticProps = async () => {
 
 const Posts: React.FC<{ posts: IPost[] }> = ({ posts }) => {
   return (
-    <div className="blog-list">
+    <div className="post-list">
       {posts.map((post) => (
         <PostCard key={post.sys.id} post={post} />
       ))}
+      <style jsx>
+        {`
+          .post-list {
+            display: flex;
+            flex-direction: column;
+            row-gap: 15px;
+            justify-content: center;
+            align-items: center;
+          }
+        `}
+      </style>
     </div>
   );
 };
