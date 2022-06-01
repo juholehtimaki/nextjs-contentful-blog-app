@@ -1,4 +1,5 @@
 import { createClient } from "contentful";
+import { IPost } from "../@types/generated/contentful";
 import { PostCard } from "../components/PostCard";
 
 export const getStaticProps = async () => {
@@ -9,23 +10,12 @@ export const getStaticProps = async () => {
   const response = await client.getEntries({ content_type: "post" });
   return {
     props: {
-      posts: response.items,
+      posts: response.items as IPost[],
     },
   };
 };
 
-export interface Post {
-  fields: any;
-  metadata: any;
-  sys: any;
-}
-
-export interface Props {
-  posts: Post[];
-}
-
-const Posts = ({ posts }: Props) => {
-  console.log(posts);
+const Posts: React.FC<{ posts: IPost[] }> = ({ posts }) => {
   return (
     <div className="blog-list">
       {posts.map((post) => (
