@@ -1,10 +1,38 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { createClient } from "contentful";
+import { PostCard } from "../components/PostCard";
 
-const Home: NextPage = () => {
-  return <div className="blog-list">Blog list</div>;
+export const getStaticProps = async () => {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID as string,
+    accessToken: process.env.CONTELTFUL_ACCESS_KEY as string,
+  });
+  const response = await client.getEntries({ content_type: "post" });
+  return {
+    props: {
+      posts: response.items,
+    },
+  };
 };
 
-export default Home;
+export interface Post {
+  fields: any;
+  metadata: any;
+  sys: any;
+}
+
+export interface Props {
+  posts: Post[];
+}
+
+const Posts = ({ posts }: Props) => {
+  console.log(posts);
+  return (
+    <div className="blog-list">
+      {posts.map((post) => (
+        <PostCard key={post.sys.id} post={post} />
+      ))}
+    </div>
+  );
+};
+
+export default Posts;
