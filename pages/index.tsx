@@ -8,10 +8,15 @@ export const getStaticProps = async () => {
     accessToken: process.env.CONTELTFUL_ACCESS_KEY as string,
   });
   const response = await client.getEntries({ content_type: "post" });
+  const posts = response.items as IPost[];
+  const sortedPosts = posts.sort(
+    (a, b) =>
+      Number(new Date(b.sys.createdAt)) - Number(new Date(a.sys.createdAt))
+  );
   return {
     props: {
-      posts: response.items as IPost[],
-      revalidate: 10,
+      posts: sortedPosts,
+      revalidate: 60,
     },
   };
 };
