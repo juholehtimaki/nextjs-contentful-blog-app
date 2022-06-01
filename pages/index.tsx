@@ -11,6 +11,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       posts: response.items as IPost[],
+      revalidate: 10,
     },
   };
 };
