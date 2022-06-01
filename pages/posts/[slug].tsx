@@ -3,6 +3,7 @@ import { IPost } from "../../@types/generated/contentful";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface IParams {
   params: {
@@ -25,7 +26,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -43,6 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const Post: React.FC<{ post: IPost }> = ({ post }) => {
+  if (!post) return <ClipLoader />;
   const { title, thumbnail, content } = post.fields;
   return (
     <div className="post-content">
