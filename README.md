@@ -2,7 +2,7 @@
 
 Example headless CMS (Content management system) project using Next.js and Contentful
 
-Live version running: [Vercel](https://link-url-here.org)
+Live version running: [Vercel](https://nextjs-contentful-blog-app.vercel.app)
 
 Example .env file:
 
