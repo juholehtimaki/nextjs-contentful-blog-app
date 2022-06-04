@@ -53,19 +53,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const Post: React.FC<{ post: IPost }> = ({ post }) => {
-  return (
-    <div className="loading-spinner-container">
-      <ClipLoader />
-      <style jsx>
-        {`
-          .loading-spinner-container {
-            display: flex;
-            justify-content: center;
-          }
-        `}
-      </style>
-    </div>
-  );
+  if (!post) {
+    return (
+      <div className="loading-spinner-container">
+        <ClipLoader />
+        <style jsx>
+          {`
+            .loading-spinner-container {
+              display: flex;
+              justify-content: center;
+            }
+          `}
+        </style>
+      </div>
+    );
+  }
   const { title, thumbnail, content } = post.fields;
   return (
     <div className="post-content">
