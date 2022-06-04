@@ -37,6 +37,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   const items = response.items as IPost[];
 
+  if (!items.length) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { post: items[0] },
     revalidate: 1,
@@ -44,7 +53,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const Post: React.FC<{ post: IPost }> = ({ post }) => {
-  if (!post) return <ClipLoader />;
+  return (
+    <div className="loading-spinner-container">
+      <ClipLoader />
+      <style jsx>
+        {`
+          .loading-spinner-container {
+            display: flex;
+            justify-content: center;
+          }
+        `}
+      </style>
+    </div>
+  );
   const { title, thumbnail, content } = post.fields;
   return (
     <div className="post-content">
